@@ -1,17 +1,15 @@
 import axios from "axios";
 import Papa from "papaparse";
+import { INFORMATION } from "../app/constans";
 
 import { Product } from "./types";
 
 export default {
   list: async (): Promise<Array<Product>> => {
     return axios
-      .get(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vT511xYEJYa8zW63XMWp-gP6CpqJs0jUGIzK-DW6HesAjNwneTyAiIe9ILHFW7e7EWxCXnClQq5pNQd/pub?gid=0&single=true&output=csv",
-        {
-          responseType: "blob",
-        }
-      )
+      .get(`${process.env.DB_URL}`, {
+        responseType: "blob",
+      })
       .then(
         (response) =>
           new Promise<Array<Product>>((resolve, reject) => {
